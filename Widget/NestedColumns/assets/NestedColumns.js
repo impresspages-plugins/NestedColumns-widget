@@ -55,7 +55,7 @@ var IpWidget_NestedColumns = function () {
 
         $(document).off('mousemove.NestedColumns').on('mousemove.NestedColumns', function( event ) {
             if (
-                $widgetObject.offset().top - event.pageY > 40
+                $widgetObject.offset().top - event.pageY > 50
                 ||
                 $widgetObject.offset().top + $widgetObject.height() < event.pageY
                 ||
@@ -73,7 +73,7 @@ var IpWidget_NestedColumns = function () {
         $controls.css('top', $widgetObject.offsetTop);
         $controls.css('position', 'absolute');
         $controls.css('left', $widgetObject.offset().left);
-        $controls.css('top', $widgetObject.offset().top - $controls.height());
+        $controls.css('top', $widgetObject.offset().top - $controls.height() - 20);
         $controls.find('.ipsColCount').on('click', $.proxy(this.countPressed, this));
 
         $controls.find('.ipsColCount').removeClass('active');
