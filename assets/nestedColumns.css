@@ -11,6 +11,11 @@
     position: relative;
 }
 
+.ipWidget-NestedColumns > .ip > .ipAdminWidgetControls > ._controls {
+    margin-top: -25px;
+    margin-bottom: 25px;
+}
+
 body{
     background: red;
 }

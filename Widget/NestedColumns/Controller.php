@@ -82,6 +82,10 @@ class Controller extends \Ip\WidgetController
         $data['revisionId'] = $revisionId;
         $data['widgetId'] = $widgetId;
         $data = $this->prepareData($data, $widgetId);
+        $widget = \Ip\Internal\Content\Model::getWidgetRecord($widgetId);
+        if ($widget['revisionId'] == '0') {
+            $data['static'] = true;
+        }
 
         return parent::generateHtml($revisionId, $widgetId, $data, $skin);
     }
