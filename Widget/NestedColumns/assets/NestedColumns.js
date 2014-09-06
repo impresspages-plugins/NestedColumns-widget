@@ -1,5 +1,5 @@
 /* Place the code below into MySamplePlugin/Widget/HelloWorld/assets/MyWidget.js file */
-IpWidget_NestedColumns = function() {
+var IpWidget_NestedColumns = function () {
     "use strict";
 
     this.$widgetObject = null;
@@ -15,7 +15,7 @@ IpWidget_NestedColumns = function() {
         this.$widgetObject = $widgetObject;
 
 
-        $widgetObject.on('mouseover', $.proxy(this.focus, this));
+        $widgetObject.on('mouseover', $.proxy(this.focus, context));
 
         if (!data.cols) {
             this.data.cols = [
@@ -53,7 +53,7 @@ IpWidget_NestedColumns = function() {
         var context = this;
 
 
-        $(document).on('mousemove.NestedColumns', function( event ) {
+        $(document).off('mousemove.NestedColumns').on('mousemove.NestedColumns', function( event ) {
             if (
                 $widgetObject.offset().top - event.pageY > 40
                 ||
@@ -63,6 +63,7 @@ IpWidget_NestedColumns = function() {
                 ||
                 event.pageX > $widgetObject.offset().left + $widgetObject.width()
             ) {
+                //if out of the widget
                 $.proxy(context.blur, context)();
             }
         });
@@ -75,6 +76,7 @@ IpWidget_NestedColumns = function() {
         $controls.css('top', $widgetObject.offset().top - $controls.height());
         $controls.find('.ipsColCount').on('click', $.proxy(this.countPressed, this));
 
+        $controls.find('.ipsColCount').removeClass('active');
         $controls.find('.ipsColCount[data-count="' + this.data.cols.length + '"]').addClass('active');
 
 
@@ -86,11 +88,21 @@ IpWidget_NestedColumns = function() {
         this.$controls.addClass('hidden');
         this.$controls.find('.ipsColCount').off();
         this.controlsOn = false;
+        $(document).off('mousemove.NestedColumns');
+
     };
 
     this.countPressed = function (e) {
+        var context = this;
         this.removeControls();
-        this.data.level = $(e.currentTarget).data('level');
+        var count  = $(e.currentTarget).data('count');
+        var cols = new Array ();
+        var i = 1;
+        for (i = 1; i <= count; i++) {
+            cols.push('column' + context.$widgetObject.data('widgetid') + '_' + i);
+        }
+        this.data.cols = cols;
+
         this.save(true);
     };
 
@@ -98,16 +110,12 @@ IpWidget_NestedColumns = function() {
 
     this.save = function (refresh) {
         var saveData = {
-            title: this.$widgetObject.find('h1,h2,h3,h4,h5,h6').html(),
-            level: this.data.level,
-            anchor: this.data.anchor,
-            link: this.data.link,
-            blank: this.data.blank
+            cols: this.data.cols
         };
         this.$widgetObject.save(saveData, refresh, function ($widget) {
-            if (refresh) {
-                $widget.find('h1,h2,h3,h4,h5,h6').focus();
-            }
+            //if (refresh) {
+            //    $widget.find('h1,h2,h3,h4,h5,h6').focus();
+            //}
         });
     };
 

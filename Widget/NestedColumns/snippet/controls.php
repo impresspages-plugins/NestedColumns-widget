@@ -2,6 +2,7 @@
     <div class="ipAdminWidgetToolbar hidden" id="ipWidgetNestedColumnsControls">
         <div class="btn-toolbar" role="toolbar">
             <div class="btn-group">
+                <button type="button" class="btn btn-controls"><?php _e('Columns', 'NestedColumns') ?></button>
                 <button type="button" data-count="1" class="btn btn-controls ipsColCount">1</button>
                 <button type="button" data-count="2" class="btn btn-controls ipsColCount">2</button>
                 <button type="button" data-count="3" class="btn btn-controls ipsColCount">3</button>

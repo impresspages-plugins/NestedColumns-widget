@@ -19,58 +19,57 @@ class Controller extends \Ip\WidgetController
     public function update($widgetId, $postData, $currentData) {
 
         if (isset($postData['method'])) {
-            switch($postData['method']) {
-                case 'adjustWidth':
-                    if (!isset($postData['widths']) || !is_array($postData['widths'])) {
-                        throw new \Ip\Exception("Missing required parameter.");
-                    }
-                    $currentData['widths'] = $postData['widths'];
-                    return $currentData;
-                    break;
-                case 'addColumn':
-                    if (!isset($postData['position'])) {
-                        throw new \Ip\Exception("Missing required parameter.");
-                    }
-                    $currentData = $this->prepareData($currentData, $widgetId);
-                    $position = $postData['position'];
-                    $i = count($currentData['cols']) + 1;
-                    while(in_array('column'.$widgetId.'_' . $i, $currentData['cols'])) {
-                        $i++;
-                    }
-                    $newColumnName = 'column'.$widgetId.'_' . $i;
-                    array_splice($currentData['cols'], $position, 0, $newColumnName);
-
-                    $currentData['widths'] = null;
-                    return $currentData;
-
-                break;
-                case 'deleteColumn':
-                    if (!isset($postData['columnName'])) {
-                        throw new \Ip\Exception("Missing required parameter.");
-                    }
-                    $currentData = $this->prepareData($currentData, $widgetId);
-
-                    if (is_array($postData['columnName'])) {
-                        foreach($postData['columnName'] as $colName) {
-                            $index = array_search($colName,$currentData['cols']);
-                            if ($index !== FALSE) {
-                                unset($currentData['cols'][$index]);
-                            }
-                        }
-                    } else {
-                        $index = array_search($postData['columnName'],$currentData['cols']);
-                        if ($index !== FALSE) {
-                            unset($currentData['cols'][$index]);
-                        }
-                    }
-
-                    $currentData['widths'] = null;
-                    return $currentData;
-                    break;
-            }
+//            switch($postData['method']) {
+//                case 'adjustWidth':
+//                    if (!isset($postData['widths']) || !is_array($postData['widths'])) {
+//                        throw new \Ip\Exception("Missing required parameter.");
+//                    }
+//                    $currentData['widths'] = $postData['widths'];
+//                    return $currentData;
+//                    break;
+//                case 'addColumn':
+//                    if (!isset($postData['position'])) {
+//                        throw new \Ip\Exception("Missing required parameter.");
+//                    }
+//                    $currentData = $this->prepareData($currentData, $widgetId);
+//                    $position = $postData['position'];
+//                    $i = count($currentData['cols']) + 1;
+//                    while(in_array('column'.$widgetId.'_' . $i, $currentData['cols'])) {
+//                        $i++;
+//                    }
+//                    $newColumnName = 'column'.$widgetId.'_' . $i;
+//                    array_splice($currentData['cols'], $position, 0, $newColumnName);
+//
+//                    $currentData['widths'] = null;
+//                    return $currentData;
+//
+//                break;
+//                case 'deleteColumn':
+//                    if (!isset($postData['columnName'])) {
+//                        throw new \Ip\Exception("Missing required parameter.");
+//                    }
+//                    $currentData = $this->prepareData($currentData, $widgetId);
+//
+//                    if (is_array($postData['columnName'])) {
+//                        foreach($postData['columnName'] as $colName) {
+//                            $index = array_search($colName,$currentData['cols']);
+//                            if ($index !== FALSE) {
+//                                unset($currentData['cols'][$index]);
+//                            }
+//                        }
+//                    } else {
+//                        $index = array_search($postData['columnName'],$currentData['cols']);
+//                        if ($index !== FALSE) {
+//                            unset($currentData['cols'][$index]);
+//                        }
+//                    }
+//
+//                    $currentData['widths'] = null;
+//                    return $currentData;
+//                    break;
+//            }
         } else {
-            //return parent::update($widgetId, $postData, $currentData);
-            //Do nothing
+            return parent::update($widgetId, $postData, $currentData);
         }
 
         return $currentData;
