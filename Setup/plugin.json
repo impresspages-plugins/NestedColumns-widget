@@ -1,0 +1,7 @@
+{
+  "title": "Nested columns",
+  "version": "1.00",
+  "name": "NestedColumns",
+  "description": "Default ImpressPages implementation gives you just one level of columns. Install this plugin and you will be able to split existing column into even smaller parts.",
+  "author": "ImpressPages"
+}
