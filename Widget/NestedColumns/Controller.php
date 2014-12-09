@@ -121,6 +121,10 @@ class Controller extends \Ip\WidgetController
             }
         }
 
+        foreach($data['widths'] as &$width) {
+            $width = str_replace(',', '.', $width); //in some locales (e.g. PL, 100 / 3 gives comma instead of dot)
+        }
+
 
         $data['cols'] = array_values($data['cols']);
 
